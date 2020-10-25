@@ -1,0 +1,398 @@
+{% load static from static %}
+{% load yellowbox_tags %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<title>YellowBox</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+		/>
+		<!-- <link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="./detail.css" />
+		<link rel="stylesheet" href="./review.css" />
+        <link rel="stylesheet" href="./gallery.css" /> -->
+        <link
+			rel="stylesheet"
+			href="{% static 'styles.css' %}"
+        />
+        <link
+			rel="stylesheet"
+			href="{% static 'detail.css' %}"
+        />
+        <link
+			rel="stylesheet"
+			href="{% static 'review.css' %}"
+        />
+        <link
+			rel="stylesheet"
+			href="{% static 'gallerys.css' %}"
+		/>
+		<link
+			rel="stylesheet"
+			href="{% static 'trailer.css' %}"
+        />
+	</head>
+	<body>
+		<nav>
+			<div class="nav-center">
+				<!-- nav header -->
+				<div class="nav-header">
+					<a href="{% url 'movies:movielist' %}">
+						<img
+						src="{% static 'movieblogLOGO-01.svg' %}"
+						class="logo"
+						alt="logo" 
+					/>
+					<button class="nav-toggle">
+						<i class="fa fa-bars"></i>
+					</button>
+				</div>
+				<!-- links -->
+				<ul class="links">
+					<li>
+						<a href="{% url 'homepage' %}">Home</a>
+					</li>
+					<li>
+						<a href="{% url 'movies:movielist' %}">Movies</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<main>
+			<section>
+				<div class="poster" style="background-image:url({{movie.posterimg.url}});">
+					{% if movie.color == 1 %}
+						<h1 class="white">{{movie.movie_title}}</h1>
+					{% elif movie.color == 2 %}
+						<h1 class="yellow">{{movie.movie_title}}</h1>
+					{% else %}
+						<h1 class="gray">{{movie.movie_title}}</h1>
+					{% endif %}
+					
+				</div>
+			</section>
+			<div class="box1 box modal-btn">
+				<span class="icon icon-detail"></span>
+				<h4>Detail</h4>
+			</div>
+			<div class="box2 box modal-btn-2">
+				<span class="icon icon-review"></span>
+				<h4>Review</h4>
+			</div>
+			<div class="box3 box modal-btn-3">
+				<span class="icon icon-trailer"></span>
+				<h4>Trailer</h4>
+			</div>
+			<div class="box4 box modal-btn-4">
+				<span class="icon icon-gallery"></span>
+				<h4>Gallary</h4>
+			</div>
+		</main>
+		<!-- model -detail -->
+		<div class="modal-overlay">
+			<div class="detail">
+				<div class="cross close-btn">
+					<img src="{% static 'icons-cross-01.svg' %}" alt="" />
+				</div>
+				<div class="detailbox1">
+					<div class="detail-poster">
+						<img src="{{movie.thumbimg.url}}" alt="" />
+					</div>
+					<div class="detail-title">
+						<div class="title1">
+							<h1>{{movie.movie_title}}</h1>
+							<p>
+								{{movie.movie_subtitle}}
+							</p>
+						</div>
+						<div class="title2">
+							<div class="row">
+								<h3>Director:</h3>
+								<p>{{movie.director}}</p>
+							</div>
+							<div class="row">
+								<h3>Genre(s):</h3>
+								<p>
+                                    {{movie.genre}}
+								</p>
+							</div>
+							<div class="row">
+								<h3>Rating:</h3>
+								<p>{{movie.get_rating_display }}</p>
+							</div>
+							<div class="row">
+								<h3>Runtime:</h3>
+								<p>{{movie.runtime}} min</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="detailbox2">
+					<div class="column sum">
+						<h3>Summary:</h3>
+						<p class="summary">
+							{{movie.summary}}
+						</p>
+					</div>
+					<div class="column watch-now">
+						<h3>Watch Now:</h3>
+						<div class="row">
+							<div class="watch-now-icon">
+								{% if movie.watch_now_netflix %}
+								<a href="{{ moive.watch_now_netflix_link }}" target="_blank">
+									<img
+										src="{% static 'icons8-netflix.svg' %}"
+										alt=""
+									/>
+								</a>
+								
+								{% endif %}
+								{% if movie.watch_now_amazon %}
+								<a href="{{ movie.watch_now_amazon_link }}" target="_blank">
+									<img 
+										src="{% static 'icons8-amazon-prime-video.svg' %}"
+										alt=""
+									/>
+								</a>
+								{% endif %}
+								{% if movie.watch_now_youtube %}
+								<a href="{{ movie.watch_now_youtube_link }}" target="_blank">
+									<img
+										src="{% static 'icons8-youtube-squared.svg' %}"
+										alt=""
+									/>	
+								</a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- modal 2 -->
+		<div class="modal-overlay-2">
+			<div class="review">
+				<div class="cross close-btn-2">
+					<img src="{% static 'icons-cross-01.svg' %}" alt="" />
+				</div>
+				<div class="review-box1 row">
+					<div class="imdb">
+						<img
+							src="{% static 'imdb-icons-01.svg' %}"
+							alt=""
+						/>
+						<h1 class="rating">{{movie.imdb}}/10</h1>
+					</div>
+					<div class="rotten">
+						<div class="img"></div>
+						<img
+							src="{% static 'icons-rotten-01.svg' %}"
+							alt=""
+						/>
+						<h1 class="rating">{{movie.rotten}}%</h1>
+					</div>
+				</div>
+				<div class="review-box2 column">
+					{% for review in reviews %}
+						<div class="review-sentance">
+							<h3>{{ review.review_title }}</h3>
+							<p>
+								{{ review.summary }}
+							</p>
+						</div>
+					{% endfor %}
+
+				</div>
+			</div>
+		</div>
+		<!-- modal  3 -->
+		<div class="modal-overlay-3">
+			<div class="trailer">
+				<div class="cross close-btn-3">
+					<img src="{% static 'icons-cross-01.svg' %}" alt="" />
+				</div>
+				<div class="trailer-box">
+					<iframe width="100%" height="100%"
+					src="{{ movie.trailer_link }}">
+					</iframe>		
+				</div>
+			</div>
+		</div>
+		<!-- modal  4 -->
+		<div class="modal-overlay-4">
+			<div class="gallery">
+				<div class="cross close-btn-4">
+					<img src="{% static 'icons-cross-01.svg' %}" alt="" />
+				</div>
+				<h1>Gallery</h1>
+				<div class="gallery-box row">
+					<div class="gallery-box1 gallery-box-n">
+						{% for image in gallery %}
+							{% if forloop.counter|mod:4 == 1  %}
+									<div class="image">
+									<div class="download">
+										<div class="row">
+											<div class="">
+												<h4>{{ image.height }}x{{ image.width }}</h4>
+											</div>	
+											<div class="">
+												<a href="{{image.gallery_img.url}}" download><div class="button">Download</div></a>
+											</div> 
+										</div>	
+									</div>
+									<a target="_blank" href="{{image.gallery_img.url}}">
+										<img src="{{image.gallery_img.url}}" alt="{{image.gallery_slug}}">
+									</a>
+								</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+					<div class="gallery-box2 gallery-box-n">
+						{% for image in gallery %}
+							{% if forloop.counter|mod:4 == 2  %}
+									<div class="image">
+									<div class="download">
+										<div class="row">
+											<div class="">
+												<h4>{{ image.height }}x{{ image.width }}</h4>
+											</div>	
+											<div class="">
+												<a href="{{image.gallery_img.url}}" download><div class="button">Download</div></a>
+											</div> 
+										</div>	
+									</div>
+									<a target="_blank" href="{{image.gallery_img.url}}">
+										<img src="{{image.gallery_img.url}}" alt="{{image.gallery_slug}}">
+									</a>
+								</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+					<div class="gallery-box3 gallery-box-n">
+						{% for image in gallery %}
+							{% if forloop.counter|mod:4 == 3  %}
+									<div class="image">
+									<div class="download">
+										<div class="row">
+											<div class="">
+												<h4>{{ image.height }}x{{ image.width }}</h4>
+											</div>	
+											<div class="">
+												<a href="{{image.gallery_img.url}}" download><div class="button">Download</div></a>
+											</div> 
+										</div>	
+									</div>
+									<a target="_blank" href="{{image.gallery_img.url}}">
+										<img src="{{image.gallery_img.url}}" alt="{{image.gallery_slug}}">
+									</a>
+								</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+					<div class="gallery-box4 gallery-box-n">
+						{% for image in gallery %}
+							{% if forloop.counter|mod:4 == 0  %}
+									<div class="image">
+									<div class="download">
+										<div class="row">
+											<div class="">
+												<h4>{{ image.height }}x{{ image.width }}</h4>
+											</div>	
+											<div class="">
+												<a href="{{image.gallery_img.url}}" download><div class="button">Download</div></a>
+											</div> 
+										</div>	
+									</div>
+									<a target="_blank" href="{{image.gallery_img.url}}">
+										<img src="{{image.gallery_img.url}}" alt="{{image.gallery_slug}}">
+									</a>
+								</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		// nav
+		const navToggle = document.querySelector(
+			'.nav-toggle'
+		)
+		const links = document.querySelector('.links')
+
+		navToggle.addEventListener('click', function () {
+			links.classList.toggle('show-links')
+		})
+
+		// model
+		const modalBtn = document.querySelector('.modal-btn')
+		const modal = document.querySelector('.modal-overlay')
+		const closeBtn = document.querySelector('.close-btn')
+
+		modalBtn.addEventListener('click', function () {
+			modal.classList.add('open-modal')
+		})
+		closeBtn.addEventListener('click', function () {
+			modal.classList.remove('open-modal')
+		})
+		// model-2
+		const modalBtn2 = document.querySelector(
+			'.modal-btn-2'
+		)
+		const modal2 = document.querySelector(
+			'.modal-overlay-2'
+		)
+		const closeBtn2 = document.querySelector(
+			'.close-btn-2'
+		)
+
+		modalBtn2.addEventListener('click', function () {
+			modal2.classList.add('open-modal')
+		})
+		closeBtn2.addEventListener('click', function () {
+			modal2.classList.remove('open-modal')
+		})
+		// model-3
+		const modalBtn3 = document.querySelector(
+			'.modal-btn-3'
+		)
+		const modal3 = document.querySelector(
+			'.modal-overlay-3'
+		)
+		const closeBtn3 = document.querySelector(
+			'.close-btn-3'
+		)
+
+		modalBtn3.addEventListener('click', function () {
+			modal3.classList.add('open-modal')
+		})
+		closeBtn3.addEventListener('click', function () {
+			modal3.classList.remove('open-modal')
+		})
+		// model-4
+		const modalBtn4 = document.querySelector(
+			'.modal-btn-4'
+		)
+		const modal4 = document.querySelector(
+			'.modal-overlay-4'
+		)
+		const closeBtn4 = document.querySelector(
+			'.close-btn-4'
+		)
+
+		modalBtn4.addEventListener('click', function () {
+			modal4.classList.add('open-modal')
+		})
+		closeBtn4.addEventListener('click', function () {
+			modal4.classList.remove('open-modal')
+		})
+	</script>
+</html>
