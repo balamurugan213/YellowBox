@@ -26,8 +26,6 @@ SECRET_KEY = ')b#la6_=rkyspr+bgl729vvekxkd#_a8^)r0=*xj6$lkv#&x+a'
 DEBUG = False
 ALLOWED_HOSTS = ['127.0.0.1','yellowbox213.herokuapp.com']
 
-ALLOWED_HOSTS = []
-
 
 # Application definition
 
