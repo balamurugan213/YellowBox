@@ -1,1 +1,1 @@
-web: gunicorn YELLOWBOX.wsgi --log-file -
+web: gunicorn YellowBox.wsgi --log-file -
