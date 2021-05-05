@@ -23,8 +23,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 SECRET_KEY = ')b#la6_=rkyspr+bgl729vvekxkd#_a8^)r0=*xj6$lkv#&x+a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-ALLOWED_HOSTS = ['127.0.0.1','yellowbox213.herokuapp.com']
+DEBUG = True
+# ALLOWED_HOSTS = ['127.0.0.1','yellowbox213.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'yellowbox213.herokuapp.com']
 
 
 # Application definition
